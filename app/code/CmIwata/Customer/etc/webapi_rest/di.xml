@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="CmIwata\Customer\Api\Auth0JwtUserContextInterface" type="CmIwata\Customer\Model\Auth0JwtUserContext"/>
+    <preference for="CmIwata\Customer\Api\Auth0JwtUserTokenReaderInterface" type="CmIwata\Customer\Model\Auth0JwtUserTokenReader" />
+    <preference for="CmIwata\Customer\Api\Auth0JwtUserTokenValidatorInterface" type="CmIwata\Customer\Model\Auth0JwtTokenExpirationValidator" />
+    <preference for="Magento\Customer\Api\CustomerRepositoryInterface"
+                type="Magento\Customer\Model\ResourceModel\CustomerRepository" />
+    <type name="Magento\Webapi\Controller\Rest\ParamsOverrider">
+        <arguments>
+            <argument name="paramOverriders" xsi:type="array">
+                <item name="%magento_customer_id%" xsi:type="object">
+                    CmIwata\Customer\Controller\Rest\ParamOverriderAuth0
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="CmIwata\Customer\Controller\Rest\ParamOverriderAuth0">
+        <arguments>
+            <argument name="userContext" xsi:type="object">CmIwata\Customer\Model\Auth0JwtUserContext</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Model\Customer\AuthorizationComposite">
+        <arguments>
+            <argument name="authorizationChecks" xsi:type="array">
+                <item name="rest_customer_authorization" xsi:type="object">CmIwata\Customer\Model\Auth0Authorization</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Auth0\SDK\Configuration\SdkConfiguration">
+        <arguments>
+            <argument name="audience" xsi:type="array">
+                <item name="0" xsi:type="string">http://localhost</item>
+            </argument>
+            <argument name="domain" xsi:type="string">https://<Auth0のテナントID>.auth0.com/</argument>
+            <argument name="clientId" xsi:type="string">Auth0のクライアントID</argument>
+            <argument name="clientSecret" xsi:type="string">Auth0のクライアントシークレット</argument>
+            <argument name="tokenAlgorithm" xsi:type="string">RS256</argument>
+            <argument name="cookieSecret" xsi:type="string">hogefugapiyo</argument>
+        </arguments>
+    </type>
+</config>
