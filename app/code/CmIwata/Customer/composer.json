@@ -1,0 +1,20 @@
+{
+    "name": "cm-iwata/customer",
+    "version": "1.0.0",
+    "description": "N/A",
+    "type": "magento2-module",
+    "license": [
+        "Proprietary"
+    ],
+    "require": {
+        "auth0/auth0-php": "^8.13.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CmIwata\\Customer\\": ""
+        }
+    }
+}
