@@ -5,6 +5,9 @@
             <module name="Magento_Authorization"/>
             <module name="Magento_Customer"/>
             <module name="Magento_Integration"/>
+            <module name="Magento_Webapi"/>
+            <module name="Magento_JwtUserToken"/>
+            <module name="Magento_JwtUserToken"/>
         </sequence>
     </module>
 </config>
